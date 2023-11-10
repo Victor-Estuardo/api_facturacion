@@ -1,18 +1,19 @@
 package com.facturacion.Controllers;
 
 import com.facturacion.Dao.IDaoDetalleFactura;
+import com.facturacion.Entity.Clientes;
 import com.facturacion.Entity.DetalleFactura;
-import com.facturacion.Entity.DetalleFacturaId;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
-@RequestMapping(value = "/facturador")
+@RequestMapping(value = ("/facturador"))
 public class DetalleFacturaController {
 
     @Autowired
@@ -23,11 +24,16 @@ public class DetalleFacturaController {
         return daoDetalleFactura.findAll();
     }
     
-    @GetMapping("/detalleFactura/{idFactura}/{idProducto}")
-    public DetalleFactura findById(@PathVariable int idFactura, @PathVariable int idProducto) {
-        DetalleFacturaId id = new DetalleFacturaId(idFactura, idProducto);
-        return daoDetalleFactura.findById(id);
-    }
+    
+    @GetMapping(value = "/detalle/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<DetalleFactura> getDetalleById(@PathVariable int id) {
+		DetalleFactura detalle = daoDetalleFactura.findById(id);
+		if (detalle != null) {
+			return ResponseEntity.ok(detalle);
+		} else {
+			return ResponseEntity.notFound().build();
+		}
+	}
     
     @PostMapping(value = "/detalleFactura", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public DetalleFactura saveDetalleFactura(@RequestBody DetalleFactura detalleFactura) {

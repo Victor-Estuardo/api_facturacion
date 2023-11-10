@@ -6,7 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.facturacion.Dao.IDaoDetalleFactura;
 import com.facturacion.Entity.DetalleFactura;
-import com.facturacion.Entity.DetalleFacturaId;
+
 
 import javax.persistence.EntityManager;
 import java.util.List;
@@ -32,7 +32,7 @@ public class DaoDetalleFactura implements IDaoDetalleFactura {
     
     @Transactional(readOnly = true)
 	@Override
-	public DetalleFactura findById(DetalleFacturaId id) {
+	public DetalleFactura findById(int id) {
     	try {
             DetalleFactura detalleFactura = em.find(DetalleFactura.class, id);
             return detalleFactura;
@@ -41,7 +41,8 @@ public class DaoDetalleFactura implements IDaoDetalleFactura {
             return null;
         }
 	}
-
+    
+    
     @Override
     public DetalleFactura save(DetalleFactura detalleFactura) {
         try {

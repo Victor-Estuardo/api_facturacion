@@ -26,10 +26,6 @@ public class Productos {
     @Column(name = "id_producto")
     private int id_producto;
     private int id_categoria;
-     @ManyToOne
-    @JoinColumn(name = "id_categoria", referencedColumnName = "id_categoria", insertable = false, updatable = false)
-     @JsonIgnoreProperties({"id_categoria"})
-    private Categorias categoria;
     private String producto;
     private int existencia;
     @Temporal(TemporalType.DATE)
