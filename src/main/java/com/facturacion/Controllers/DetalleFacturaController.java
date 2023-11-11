@@ -26,14 +26,14 @@ public class DetalleFacturaController {
     
     
     @GetMapping(value = "/detalle/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<DetalleFactura> getDetalleById(@PathVariable int id) {
-		DetalleFactura detalle = daoDetalleFactura.findById(id);
-		if (detalle != null) {
-			return ResponseEntity.ok(detalle);
-		} else {
-			return ResponseEntity.notFound().build();
-		}
-	}
+    public ResponseEntity<List<DetalleFactura>> getDetalleById(@PathVariable int id) {
+        List<DetalleFactura> detalle = daoDetalleFactura.findById(id);
+        if (!detalle.isEmpty()) {
+            return ResponseEntity.ok(detalle);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
     
     @PostMapping(value = "/detalleFactura", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public DetalleFactura saveDetalleFactura(@RequestBody DetalleFactura detalleFactura) {

@@ -1,25 +1,26 @@
 package com.facturacion.Entity;
 
 
-import lombok.Data;
-import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.IdClass;
 import javax.persistence.Table;
+
+import lombok.Data;
+
 
 @Data
 @Entity
-@Table(name = "detalle")
+@Table(name = "detalle_factura")
+@IdClass(DetalleFacturaId.class)
 public class DetalleFactura {
-	 @Id
-	  @GeneratedValue(strategy = GenerationType.IDENTITY)
-	  @Column(name = "id_factura")
+
+	@Id
     private int  id_factura;
-	
+
+	@Id
     private int  id_producto;
-	
+
     private String cantidad;
 
     private float precio;

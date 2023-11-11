@@ -24,10 +24,6 @@ public class Usuarios {
     @Column(name = "id_usuario")
     private int id_usuario;
     private int id_rol;
-    @ManyToOne
-    @JoinColumn(name = "id_rol", referencedColumnName = "id_rol", insertable = false, updatable = false)
-    @JsonIgnoreProperties({"id_rol"})
-    private Roles rol;
     private int id_persona;
     private String usuario;
     private String clave;

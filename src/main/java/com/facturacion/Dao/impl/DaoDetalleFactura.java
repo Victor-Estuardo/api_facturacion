@@ -6,9 +6,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.facturacion.Dao.IDaoDetalleFactura;
 import com.facturacion.Entity.DetalleFactura;
-
+import com.facturacion.Entity.Usuarios;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
+import javax.persistence.TypedQuery;
+
 import java.util.List;
 
 @Repository
@@ -32,15 +35,19 @@ public class DaoDetalleFactura implements IDaoDetalleFactura {
     
     @Transactional(readOnly = true)
 	@Override
-	public DetalleFactura findById(int id) {
+	public List<DetalleFactura> findById(int id) {
     	try {
-            DetalleFactura detalleFactura = em.find(DetalleFactura.class, id);
-            return detalleFactura;
+            TypedQuery<DetalleFactura> tq = em.createQuery("SELECT d FROM DetalleFactura d WHERE d.id_factura = :id",DetalleFactura.class);
+            List<DetalleFactura> detalle = tq.setParameter("id", id).getResultList();
+            return detalle;
+        } catch (NoResultException e) {
+            return null;
         } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
 	}
+    
     
     
     @Override
